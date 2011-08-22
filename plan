@@ -1,0 +1,17 @@
+
+TODO
+
+install quartz, mail plugin
+
+Send email on failure to david@dawsonsystems
+
+Create job to call MailDownloadService
+
+Update to purge the mailbox on completion.
+
+Deploy to mycenae, scan all available expenses
+
+When scanned, put into expenses box next to scanner.
+
+Make DB backup
+
