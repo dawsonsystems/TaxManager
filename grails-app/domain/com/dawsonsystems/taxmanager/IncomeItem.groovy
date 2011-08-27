@@ -5,12 +5,10 @@ import org.joda.time.DateTime
 class IncomeItem {
 
     Company company
-    Money amount
+    BigDecimal amount
     DateTime date
     byte[] content
     String contentType
-
-    static embedded = ['amount']
 
     static constraints = {
         content(maxSize:1073741824)

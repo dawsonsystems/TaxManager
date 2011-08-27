@@ -17,6 +17,10 @@
 
 <div class="body">
     <h1>${title}</h1>
+    <g:form controller="mail" action="index">
+
+        <button type="submit">Refresh This List</button>
+    </g:form>
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>

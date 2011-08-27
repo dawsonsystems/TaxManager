@@ -14,7 +14,12 @@ class ExpenseItemController {
     }
 
     def unprocessedList = {
-        def expenseItemInstanceList = ExpenseItem.findAllByDateIsNullOrAmountIsNull()
+        def expenseItemInstanceList = ExpenseItem.withCriteria {
+            or {
+                eq("date", null)
+                eq("amount", null)
+            }
+        }
         render(view:"list", model:[title:"Unprocessed Expenses", expenseItemInstanceList:expenseItemInstanceList, expenseItemInstanceTotal:expenseItemInstanceList ])
     }
 

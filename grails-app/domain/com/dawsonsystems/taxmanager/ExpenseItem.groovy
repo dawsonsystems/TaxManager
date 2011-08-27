@@ -6,7 +6,7 @@ class ExpenseItem {
 
     Company company
     BigDecimal amount
-    DateTime date
+    Date date
     byte[] content
     String contentType
     String description

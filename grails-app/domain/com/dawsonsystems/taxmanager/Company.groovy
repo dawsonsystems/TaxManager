@@ -1,7 +1,6 @@
 package com.dawsonsystems.taxmanager
 
 import org.joda.time.DateTime
-import org.joda.time.contrib.hibernate.PersistentDateTime
 
 class Company {
 
@@ -13,8 +12,8 @@ class Company {
     static constraints = {
     }
 
-    static mapping = {
-        yearEnd type: PersistentDateTime, lazy: false
-
-    }
+//    static mapping = {
+//        yearEnd type: PersistentDateTime, lazy: false
+//
+//    }
 }

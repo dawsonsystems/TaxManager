@@ -10,23 +10,28 @@ import javax.mail.BodyPart
 import com.sun.mail.util.BASE64DecoderStream
 import javax.mail.NoSuchProviderException
 import javax.mail.MessagingException
+import javax.mail.Flags.Flag
 
 class MailDownloadService {
 
-    static transactional = true
+    static transactional = false
 
     def checkDawsonsystemsMail() {
          Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
         println "CONNECTING...."
+
+        Store store
+        Folder folder
         try {
           Session session = Session.getDefaultInstance(props, null);
-          Store store = session.getStore("pop3");
+          store = session.getStore("pop3");
+
           store.connect("mail.dawsonsystems.co.uk", "expenses@dawsonsystems.co.uk", "9790153");
 
-            Folder folder = store.getDefaultFolder()
+            folder = store.getDefaultFolder()
             folder = folder.getFolder("INBOX")
-            folder.open(Folder.READ_ONLY)
+            folder.open(Folder.READ_WRITE)
 
             println "${folder.messages}"
 
@@ -56,16 +61,21 @@ class MailDownloadService {
 
                 if (!processedFile) {
                     //TODO send a message to FROM, CC david.dawson@dawsonsystems.com saying that we couldn't understand this.
+                    throw new RuntimeException("Unable to process email ${message.subject} from ${message.sender}")
+                } else {
+                    log.info("Setting to DELETED")
+                    message.setFlag(Flag.DELETED, true)
                 }
-
             }
 
-            //TODO, purge the mailbox
 
         } catch (NoSuchProviderException e) {
           e.printStackTrace();
         } catch (MessagingException e) {
           e.printStackTrace();
+        }  finally {
+            folder?.close(true)
+            store?.close()
         }
     }
 

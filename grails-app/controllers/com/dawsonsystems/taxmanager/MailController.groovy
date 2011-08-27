@@ -5,7 +5,7 @@ class MailController {
     def index = {
 
         mailDownloadService.checkDawsonsystemsMail()
-
+        redirect(controller:"expenseItem", action:"unprocessedList")
     }
 
     def exampleExpenses = {
